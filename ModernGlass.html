@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Glass - Vintage Chic Furniture</title>
+    <link rel="stylesheet" href="table.css">
+    <style>
+        .button-container button {
+            background-color: #ce5792; 
+            border: none; 
+            border-radius: 5px; 
+            padding: 10px 15px;
+            color: white; 
+            cursor: pointer; 
+        }
+        .button-container button a {
+            text-decoration: none; /* Remove underline from links */
+            color: white; /* Text color */
+        }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: rgb(222, 135, 196);
+        }
+
+        .header {
+            background-color: rgb(44, 2, 44);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #0c0381;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: white;
+        }
+
+        .header p {
+            font-family: 'Raleway', sans-serif;
+            font-size: 19px;
+            color: white;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 600px;
+            overflow: hidden; /* Hide overflow for sliding effect */
+        }
+
+        .carousel-images {
+            display: flex; /* Use flexbox for horizontal layout */
+            transition: transform 0.5s ease; /* Smooth transition for sliding */
+        }
+
+        .carousel img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .carousel .prev, .carousel .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .carousel .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .carousel .prev:hover, .carousel .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .indicators {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #bbb;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background-color: #717171;
+        }
+
+        .description {
+            max-width: 600px;
+            color: black;
+            padding: 30px;
+            background-image: url('https://wallpapercave.com/wp/wp12112891.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .description h2 {
+            font-size: 24px;
+        }
+
+        .description p {
+            font-size: 18px;
+        }
+
+        .reviews {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reviews h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .review {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .footer {
+            background-color: #3a063b;
+            color: #e0f7fa;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Raleway', sans-serif;
+            margin-top: 20px;
+        }
+
+        .footer-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-link {
+            margin: 20px;
+        }
+
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-container">
+            <a href="index.html">
+                <img src="logo2.png" alt="Table Logo" class="logo">
+            </a>
+            <div class="button-container">
+                <button class="hum"><a href="index.html" class="home"><b>Home</b></a></button>
+                <button class="con"><a href="contact.html" class="us"><b>Contact Us</b></a></button>
+                <button><a href="AboutUs.html" class="us"><b>About Us</b></a></button>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+        <h1>Modern Glass Table</h1>
+        <p>Experience the timeless beauty of our Modern Glass Table.</p>
+    </div>
+
+    <div class="content">
+        <!-- Image Carousel -->
+        <div class="carousel" id="carousel">
+            <div class="carousel-images" id="carouselImages">
+                <img id="carouselImage" src="code1.jpg" alt="Modern Glass" />
+                <img src="code2.jpg" alt="Elegant Oak" />
+                <img src="code3.jpg" alt="Elegant Oak" />
+                <img src="code4.jpg" alt="Elegant Oak"/>
+            </div>
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+        <div class="indicators" id="indicators"></div>
+
+        <div class="description">
+            <h2>Product Description</h2>
+            <p><strong>Size:</strong> 60x30 inches</p>
+            <p><strong>Price:</strong> $800</p>
+            <p>The Modern Glass Table is a stunning centerpiece for any contemporary dining space. With its sleek 60x30 inch clear glass surface and minimalist design, this table brings a touch of elegance and sophistication to your home.</p>
+            <p>Perfect for intimate dinners, casual gatherings, or as a stylish workspace, its versatile aesthetic complements a variety of decor styles, from modern to industrial chic. The sturdy base ensures durability while maintaining a light and airy feel.</p>
+            <p>Claim your Modern Glass Table today and let your space shine with sophistication!</p>
+        </div>
+    </div>
+
+    <!-- Product Reviews Section -->
+<div class="reviews">
+    <h3>Customer Reviews</h3>
+    <div class="review">
+        <strong>Michael Smith:</strong>
+        <p>I just purchased this modern glass table for an anniversary gift and I am so sure that my wife will love it. Best purchase I have ever made!!</p>
+    </div>
+    <div class="review">
+        <strong>Sarah Garcia :</strong>
+        <p>I am so in love with my new Modern Glass Table. It makes my kitchen shine with luxury.</p>
+    </div>
+    <div class="review">
+        <strong>Daniel Lee:</strong>
+        <p>Thanks for this design of modern glass table. Such one of a kind. I am so glad I discovered your website!!</p>
+    </div>
+</div>
+
+    <!-- Modal for image expansion -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-media">
+                <h3>Follow Us On:</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://wa.me/5016533236" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp" class="social-icon">
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <h3>We Accept:</h3>
+                <div class="payment-icons">
+                    <img src="VISA.jpeg" alt="Visa">
+                    <img src="MASTER.jpeg" alt="MasterCard">
+                    <img src="PAY.jpeg" alt="PayPal">
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vintage Chic Furniture by Narges Pech. All rights reserved.</p>
+            <p>Your trusted source for quality dining tables that create lasting memories.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Image Carousel Functionality
+        let currentSlide = 0;
+        const images = [
+        "code1.jpg",
+        "code2.jpg",
+        "code3.jpg",
+        "code4.jpg"
+        ];
+
+        // Create indicators
+        const indicatorsContainer = document.getElementById("indicators");
+        images.forEach((_, index) => {
+            const indicator = document.createElement("div");
+            indicator.classList.add("indicator");
+            indicator.addEventListener("click", () => goToSlide(index));
+            indicatorsContainer.appendChild(indicator);
+        });
+
+        const indicators = document.querySelectorAll(".indicator");
+        indicators[currentSlide].classList.add("active");
+
+        let autoSlideInterval = setInterval(() => changeSlide(1), 3000); // Auto slide every 3 seconds
+
+        function changeSlide(n) {
+            currentSlide += n;
+            if (currentSlide >= images.length) {
+                currentSlide = 0; // Loop back to the first image
+            } else if (currentSlide < 0) {
+                currentSlide = images.length - 1; // Loop back to the last image
+            }
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const carouselImages = document.getElementById("carouselImages");
+            carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`; // Slide effect
+            indicators.forEach(ind => ind.classList.remove("active"));
+            indicators[currentSlide].classList.add("active");
+        }
+
+        // Pause auto sliding on hover
+        const carousel = document.getElementById("carousel");
+        carousel.addEventListener("mouseenter", () => {
+            clearInterval(autoSlideInterval); // Stop auto sliding
+        });
+
+        carousel.addEventListener("mouseleave", () => {
+            autoSlideInterval = setInterval(() => changeSlide(1), 3000); // Resume auto sliding
+        });
+
+        // Swipe support for touch devices
+        let startX = 0;
+        let endX = 0;
+
+        carousel.addEventListener("touchstart", (event) => {
+            startX = event.touches[0].clientX; // Get the starting touch position
+        });
+
+        carousel.addEventListener("touchmove", (event) => {
+            endX = event.touches[0].clientX; // Get the current touch position
+        });
+
+        carousel.addEventListener("touchend", () => {
+            if (startX > endX + 50) {
+                changeSlide(1); // Swipe left
+            } else if (startX < endX - 50) {
+                changeSlide(-1); // Swipe right
+            }
+        });
+
+        // Function to open the modal
+        function openModal(src) {
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("img01");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Add click event to carousel image to open modal
+        document.getElementById("carouselImages").onclick = function() {
+            openModal(images[currentSlide]);
+        };
+    </script>
+</body>
+</html>

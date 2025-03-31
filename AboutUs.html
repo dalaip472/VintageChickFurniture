@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Vintage Chic Furniture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="table.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: RGB(206, 87, 146);
+            color: #333;
+        }
+        .header {
+            padding: 10px;
+            text-align: center;
+            color: white;
+            background-color: rgb(44, 2, 44);
+        }
+        .header-container {
+            display: flex;
+            align-items: center; 
+            justify-content: flex-end; 
+            padding: 10px;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px; 
+        }
+        .button-container button {
+            background-color: #ce5792; 
+            border: none; 
+            border-radius: 5px; 
+            padding: 10px 15px;
+            color: rgb(255, 255, 255); 
+            cursor: pointer; 
+        }
+        .button-container button a {
+            text-decoration: none;
+            color: white;
+        }
+        .about-hero {
+            background: linear-gradient(rgba(44, 2, 44, 0.7), rgba(44, 2, 44, 0.7)), url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .sections-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+        .story-section, .values-section {
+            background-color: #2c022c; /* Deep purple */
+            color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            flex: 1; /* Allow sections to grow equally */
+            margin-right: 20px; /* Space between sections */
+        }
+        .values-section {
+            margin-right: 0; /* Remove margin for the last section */
+        }
+        .section-title {
+            color: #ffd700; /* Gold accent color */
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color:white;
+        }
+        .story-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+        .story-text p {
+            margin-bottom: 1.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .value-card {
+            text-align: center;
+            padding: 40px 1px;
+            background-color:pink;
+            border-radius: 10px;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            color:black;
+        }
+        .value-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #9c135e, #ce5792);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+        .value-card i {
+            font-size: 3rem;
+            color: #ce5792;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+        .value-card:hover i {
+            color: white;
+            transform: rotateY(360deg) scale(1.2);
+        }
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        .value-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 40%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background-color: #ce5792;
+            transition: all 0.3s ease;
+        }
+        .value-card:hover h3::after {
+            width: 80px;
+            background-color: white;
+        }
+        .value-card:hover {
+            background: linear-gradient(135deg, #9c135e 0%, #ce5792 100%);
+            color: white;
+        }
+        .testimonial-section {
+            background-color: #9c135e;
+            color: white;
+            padding: 60px 20px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .testimonial {
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        .testimonial-author {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .testimonial-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        /* Footer Styles */
+        .footer {
+            background-color: #ce5792;
+            color: white;
+            padding: 20px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .social-media, .payment-methods, .footer-links {
+            flex: 1;
+            margin: 0 20px;
+        }
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .footer-links ul li {
+            margin: 5px 0;
+        }
+        .footer-links ul li a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
+        }
+        .footer-links ul li a:hover {
+            color: #ffccff;
+        }
+        .social-icon {
+            width: 30px;
+            height: 30             px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #9c135e;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 1s ease-out forwards;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sections-container {
+                flex-direction: column; /* Stack sections on smaller screens */
+            }
+            .story-section, .values-section {
+                margin-right: 0; /* Remove right margin */
+                margin-bottom: 20px; /* Add bottom margin for spacing */
+            }
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .social-media, .payment-methods, .footer-links {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-container">
+            <a href="index.html">
+                <img src="logo2.png" alt="Table Logo" class="logo">
+            </a>
+            <div class="button-container">
+                <button class="hum"><a href="index.html" class="home"><b>Home</b></a></button>
+                <button class="con"><a href="contact.html" class="us"><b>Contact Us</b></a></button>
+                <button><a href="AboutUs.html" class="us"><b>About Us</b></a></button>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+        <h1>Vintage Chic Furniture</h1>
+        <p>Crafting moments that last for generations - tables that make memories</p>
+    </div>
+
+    <div class="about-hero">
+        <div>
+            <h1>Our Story</h1>
+            <p>For over a decade, Vintage Chic Furniture has been transforming homes with our exquisite dining tables that blend timeless elegance with modern craftsmanship.</p>
+        </div>
+    </div>
+
+    <div class="about-content">
+        <div class="sections-container">
+            <section class="story-section animate-slide-up">
+                <h2 class="section-title">From Humble Beginnings</h2>
+                <div class="story-text">
+                    <p>Founded in 2010 by master carpenter Narges Pech, Vintage Chic Furniture began as a small workshop with a big vision: to create dining tables that weren't just furniture, but heirlooms that would be passed down through generations.</p>
+                    <p>What started as a passion project in a garage has blossomed into a beloved brand known for its commitment to quality, sustainability, and timeless design. Each table in our collection is crafted with the same attention to detail and love that went into that very first piece.</p>
+                    <p>Today, while we've grown beyond that single workshop, we still maintain the same artisanal approach to furniture making. Every table is hand-finished by our skilled craftsmen using techniques perfected over decades.</p>
+                </div>
+            </section>
+
+            <section class="values-section animate-slide-up" style="animation-delay: 0.2s;">
+                <h2 class="section-title">Our Core Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Sustainable Materials</h3>
+                        <p>We source only the finest, responsibly harvested woods to ensure minimal environmental impact.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-hammer"></i>
+                        <h3>Handcrafted</h3>
+                        <p>Each piece is handcrafted by skilled artisans using time-honored techniques.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Timeless Design</h3>
+                        <p>Our tables blend classic elegance with contemporary style for enduring beauty.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-award"></i>
+                        <h3>Quality Guarantee</h3>
+                        <p>We stand behind every piece with a lifetime craftsmanship warranty.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-home"></i>
+                        <h3>Family Focused</h3>
+                        <p>We design tables that become the heart of your home for generations.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-recycle"></i>
+                        <h3>Eco-Friendly</h3>
+                        <p>From sustainable packaging to non-toxic finishes, we prioritize the planet.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="testimonial-section animate-slide-up" style="animation-delay: 0.4s;">
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    "Our Vintage Chic dining table has become the centerpiece of our home. Not just for meals, but for homework, game nights, and deep conversations. It's more than furniture - it's where memories are made."
+                </div>
+                <div class="testimonial-author">Sarah Johnson</div>
+                <div class="testimonial-role">Homeowner since 2015</div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-media">
+                <h3>Follow Us On:</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://wa.me/5016533236" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp" class="social-icon">
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <h3>We Accept:</h3>
+                <div class="payment-icons">
+                    <img src="VISA.jpeg" alt="Visa">
+                    <img src="MASTER.jpeg" alt="MasterCard">
+                    <img src="PAY.jpeg" alt="PayPal">
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vintage Chic Furniture by Narges Pech. All rights reserved.</p>
+            <p>Your trusted source for quality dining tables that create lasting memories.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate-slide-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = 0;
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

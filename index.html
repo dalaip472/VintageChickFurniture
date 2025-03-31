@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Chic Furniture</title>
+    <link rel="stylesheet" href="table.css">
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif; /* Set a default font */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            background-color: RGB(206, 87, 146); /* Light background color */
+        }
+        .header {
+            padding: 10px;
+            text-align: center;
+            color: white;
+            background-color: rgb(44,2,44); /* Header background color */
+        }
+        .header-container {
+            display: flex;
+            align-items: center; 
+            justify-content: flex-end; 
+            padding: 10px;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px; 
+        }
+        .button-container button {
+            background-color: #ce5792; 
+            border: none; 
+            border-radius: 5px; 
+            padding: 10px 15px;
+            color: rgb(255, 255, 255); 
+            cursor: pointer; 
+        }
+        .button-container button a {
+            text-decoration: none; /* Remove underline from links */
+            color: white; /* Text color */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .table-item {
+            background-color: white; /* Change to white for better contrast */
+            border: 1px solid #9c135e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(27, 25, 25, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 250px; /* Fixed width */
+            height: 400px; /* Increased height for button */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space out content evenly */
+        }
+        .table-item img {
+            max-width: 100%;
+            height: 150px; /* Fixed height for images */
+            border-radius: 10px;
+            object-fit: cover; /* Maintain aspect ratio */
+        }
+        .search-bar {
+            text-align: center;
+            margin: 20px;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid #201717;
+            border-radius: 9px;
+        }
+        .add-to-cart {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        /* Cart Styles */
+        #cart {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            display: none; /* Initially hidden */
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0; /* Start hidden */
+            transition: opacity 0.5s ease; /* Fade in/out effect */
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+        .notification.show {
+            opacity: 1; /* Make visible */
+        }
+        /* Footer Styles */
+        .footer {
+            background-color: #ce5792;
+            color: white;
+            padding: 20px;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between; /* Space out the sections */
+            align-items: flex-start; /* Align items to the top */
+            max-width: 1200px; /* Max width for the footer */
+            margin: auto; /* Center the footer */
+        }
+        .social-media, .payment-methods, .footer-links {
+            flex: 1; /* Allow sections to grow equally */
+            margin: 0 20px; /* Margin between sections */
+        }
+        .footer-links ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove padding */
+        }
+        .footer-links ul li {
+            margin: 5px 0; /* Space between list items */
+        }
+        .footer-links ul li a {
+            text-decoration: none; /* Remove underline */
+            color: white; /* Link color */
+            transition: color 0.3s; /* Smooth transition for hover effect */
+        }
+        .footer-links ul li a:hover {
+            color: #ffccff; /* Change color on hover */
+        }
+        .social-icons, .payment-icons {
+            display: flex; /* Align icons horizontally */
+            gap: 15px; /* Space between icons */
+            justify-content: center; /* Center icons */
+        }
+        .footer-bottom {
+            text-align: center; /* Center text */
+            padding: 10px 0; /* Padding for bottom text */
+            background-color: #9c135e; /* A darker shade for contrast */
+            margin-top: 20px; /* Space above the bottom section */
+            font-size: 0.9em; /* Smaller font size for bottom text */
+        }
+        .footer-bottom p {
+            margin: 5px 0; /* Space between bottom text paragraphs */
+        }
+        /* Circle Styles */
+        .circle {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 5px;
+            display: inline-block;
+        }
+        
+        /* New styles for quantity and payment */
+        .quantity-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #9c27b0; /* Purple border */
+    background: #e1bee7; /* Light purple background */
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a148c; /* Dark purple text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.quantity-btn:hover {
+    background: #ba68c8; /* Medium purple on hover */
+    color: white;
+    transform: scale(1.1);
+}
+
+.quantity-input {
+    width: 40px;
+    text-align: center;
+    margin: 0 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #7b1fa2; /* Purple text */
+    border: 1px solid #ab47bc;
+    border-radius: 4px;
+}
+        
+        .quantity-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+        }
+        #paymentModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .payment-method {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .payment-method.selected {
+            border-color: #4CAF50;
+            background-color: #f0fff0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-container">
+            <a href="index.html">
+                <img src="logo2.png" alt="Table Logo" class="logo">
+            </a>
+            <div class="button-container">
+                <button class="hum"><a href="index.html" class="home"><b>Home</b></a></button>
+                <button class="con"><a href="contact.html" class="us"><b>Contact Us</b></a></button>
+                <button><a href="AboutUs.html" class="us"><b>About Us</b></a></button>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
+        <h1>Vintage Chic Furniture</h1>
+        <p>Crafting moments that last for generations - tables that make memories</p>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" onkeyup="searchTables()" placeholder="Search for dining tables...">
+    </div>
+
+    <div class="container" id="tableContainer">
+        <div class="table-item">
+            <a href="ElegantOak.html">
+                <img src="aa.jpg" alt="Elegant Oak">
+                <h3>Elegant Oak</h3>
+                <p>Size: 72x36 inches</p>
+                <p>Price: $750</p>
+            </a>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" class="quantity-input" value="1" min="1">
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="table-item">
+            <a href="ModernGlass.html">
+                <img src="code1.jpg" alt="Modern Glass">
+                <h3>Modern Glass</h3>
+                <p>Size: 60x30 inches</p>
+                <p>Price: $800</p>
+            </a>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" class="quantity-input" value="1" min="1">
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="table-item">
+            <a href="RefinedGrace.html">
+                <img src="french1.jpg" alt="Refined Grace">
+                <h3>Refined Grace</h3>
+                <p>Size: 84x40 inches</p>
+                <p>Price: $830</p>
+            </a>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" class="quantity-input" value="1" min="1">
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="table-item">
+            <a href="ClassicMahogany.html">
+                <img src="pip1.jpg" alt="Classic Mahogany">
+                <h3>Classic Mahogany</h3>
+                <p>Size: 78x38 inches</p>
+                <p>Price: $750</p>
+            </a>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" class="quantity-input" value="1" min="1">
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="table-item">
+            <a href="PolishedRound.html">
+                <img src="fun2.jpg" alt="Timeless Blue">
+                <h3>Polished Round</h3>
+                <p>Size: 70x34 inches</p>
+                <p>Price: $749</p>
+            </a>
+            <div class="quantity-control">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" class="quantity-input" value="1" min="1">
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+
+    <div id="cart">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <div id="cart-total" style="font-weight: bold; margin: 10px 0;"></div>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal">
+        <div class="modal-content">
+            <h2>Select Payment Method</h2>
+            <div class="payment-method" onclick="selectPayment('visa')">
+                <img src="VISA.jpeg" alt="Visa" width="50">
+                <span>Visa</span>
+            </div>
+            <div class="payment-method" onclick="selectPayment('mastercard')">
+                <img src="MASTER.jpeg" alt="MasterCard" width="50">
+                <span>MasterCard</span>
+            </div>
+            <div class="payment-method" onclick="selectPayment('paypal')">
+                <img src="PAY.jpeg" alt="PayPal" width="50">
+                <span>PayPal</span>
+            </div>
+            <button onclick="completePurchase()" style="background-color: #4CAF50; color: white; border: none; padding: 10px; margin-top: 10px; width: 100%; border-radius: 5px; cursor: pointer;">Complete Purchase</button>
+            <button onclick="closePaymentModal()" style="background-color: #f44336; color: white; border: none; padding: 10px; margin-top: 5px; width: 100%; border-radius: 5px; cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-media">
+                <h3>Follow Us On:</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://wa.me/5016533236" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp" class="social-icon">
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <h3>We Accept:</h3>
+                <div class="payment-icons">
+                    <img src="VISA.jpeg" alt="Visa">
+                    <img src="MASTER.jpeg" alt="MasterCard">
+                    <img src="PAY.jpeg" alt="PayPal">
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vintage Chic Furniture by Narges Pech. All rights reserved.</p>
+            <p>Your trusted source for quality dining tables that create lasting memories.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize an empty cart
+        let cart = [];
+        let selectedPaymentMethod = null;
+
+        // Add event listeners when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity controls
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.nextElementSibling;
+                    if (input.value > 1) input.value--;
+                });
+            });
+
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    input.value++;
+                });
+            });
+
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const itemElement = this.parentElement;
+                    const quantity = parseInt(itemElement.querySelector('.quantity-input').value);
+                    
+                    const item = {
+                        id: index,
+                        name: itemElement.querySelector('h3').innerText,
+                        price: parseFloat(itemElement.querySelector('p:nth-of-type(2)').innerText.replace(/[^0-9.]/g, '')),
+                        image: itemElement.querySelector('img').src,
+                        quantity: quantity
+                    };
+                    
+                    addToCart(item);
+                });
+            });
+        });
+
+        // Add item to cart
+        function addToCart(item) {
+            // Check if item already exists in cart
+            const existingItem = cart.find(cartItem => cartItem.id === item.id);
+            
+            if (existingItem) {
+                existingItem.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+            
+            updateCartDisplay();
+            showNotification(`${item.quantity} ${item.name}(s) added to cart!`);
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>${item.name} (${item.quantity})</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(li);
+                total += item.price * item.quantity;
+            });
+            
+            document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+            document.getElementById('cart').style.display = 'block';
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerText = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // Checkout function
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty! Please add items to your cart before checking out.');
+                return;
+            }
+            
+            // Show payment methods
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        // Select payment method
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            // Highlight selected payment method
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Complete purchase
+        function completePurchase() {
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`Payment of $${total.toFixed(2)} with ${selectedPaymentMethod} was successful!`);
+            
+            // Clear cart
+            cart = [];
+            updateCartDisplay();
+            closePaymentModal();
+            showNotification('Purchase completed successfully!');
+        }
+
+        // Close payment modal
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+            selectedPaymentMethod = null;
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+        }
+
+        // Search functionality
+        function searchTables() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.table-item');
+
+            items.forEach(item => {
+                const title = item.querySelector('h3').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
